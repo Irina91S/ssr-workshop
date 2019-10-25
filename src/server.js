@@ -1,5 +1,6 @@
 import express from "express";
 import renderer from "./helpers/renderer";
+import createStore from "./helpers/createStore";
 
 // create express app
 const app = express();
@@ -9,7 +10,10 @@ app.use(express.static("public"));
 
 // listen to root request
 app.get("*", (req, res) => {
-  res.send(renderer(req));
+  const store = createStore();
+  // dispatch fetch users action creator
+  // ask the route/routes  what data do they need
+  res.send(renderer(req, store));
 });
 
 // start server
